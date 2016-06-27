@@ -10,32 +10,77 @@ import UIKit
 
 private let reuseIdentifier = "Cell"
 
-class MovieCollectionViewController: UICollectionViewController {
+struct Seccion {
+    var nombres : [String]
+    var imagenes : [UIImage]
+    
+    init(nombres : [String], imagenes : [UIImage]){
+        self.nombres = nombres
+        self.imagenes = imagenes
+    }
+}
 
+
+class MovieCollectionViewController: UICollectionViewController {
+    
+    
+    let keyDev: String = "9c9463d82b0ab409790d6a47c392df5b"
+    let urlMovie: String = "http://api.themoviedb.org/3/search/movie"
+    let urlImage: String = "http://image.tmdb.org/t/p/w500"
+    var urls_img:String = ""
+    
+    var movie = [Seccion]()
+    
     @IBAction func search(sender: UITextField) {
-        print("Busca... " + sender.text!)
+     //   let seccion = Seccion(nombres: sender.text, imagenes: searchInMovie(sender.text!))
+        print(searchInMovie(sender.text!))
+        
+        movie.append(searchInMovie(sender.text!))
+        
     }
     
-    func searchInMovie(word : String)-> [UIImage]{
+    func searchInMovie(word : String)-> Seccion{
         var imgs = [UIImage]()
-        let urls = "" + word
+        var names = [String]()
+        
+        
+        let urls = urlMovie+"?api_key="+keyDev+"&query="+word
         let url = NSURL(string: urls)
         let datos = NSData(contentsOfURL: url!)
         
-        do{
-            let json = try NSJSONSerialization.JSONObjectWithData(datos!, options: NSJSONReadingOptions.MutableLeaves)
-
-            
-        }catch{
+        var data:Seccion = (Seccion(nombres: names, imagenes: imgs))
         
+        do{
+            let json = try NSJSONSerialization.JSONObjectWithData(datos!, options: NSJSONReadingOptions.MutableLeaves) as! NSDictionary
+            
+            print("response data: \(json)")
+            
+            let resultado = (json["results"] as! NSArray)
+            
+            for elemento in resultado{
+                
+
+                if let imageURL = (elemento as! NSDictionary)["poster_path"] as? String {
+                    self.urls_img = imageURL
+                    
+                    let url_img = urlImage + urls_img + "?api_key="+keyDev
+                    let urlImg = NSURL(string:url_img);
+                    let img_data = NSData(contentsOfURL: urlImg!)
+                    
+                    if let imagen = UIImage(data: img_data!){
+                        imgs.append(imagen)
+                        names.append((elemento as! NSDictionary)["original_title"] as! String)
+                    }
+                }
+            }
+            
+           data = (Seccion(nombres: names , imagenes: imgs))
+
+        }catch{
             
         }
         
-        
-        
-        
-        
-        return imgs
+        return data
     }
     
     
@@ -71,13 +116,13 @@ class MovieCollectionViewController: UICollectionViewController {
 
     override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 0
+        return movie.count
     }
 
 
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of items
-        return 0
+        return movie[section].imagenes.count
     }
 
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
