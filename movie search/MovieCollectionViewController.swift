@@ -36,7 +36,7 @@ class MovieCollectionViewController: UICollectionViewController {
         print(searchInMovie(sender.text!))
         
         movie.append(searchInMovie(sender.text!))
-        
+        self.collectionView!.reloadData()
     }
     
     func searchInMovie(word : String)-> Seccion{
@@ -92,7 +92,7 @@ class MovieCollectionViewController: UICollectionViewController {
         // self.clearsSelectionOnViewWillAppear = false
 
         // Register cell classes
-        self.collectionView!.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
+        //self.collectionView!.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
 
         // Do any additional setup after loading the view.
     }
@@ -126,8 +126,11 @@ class MovieCollectionViewController: UICollectionViewController {
     }
 
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath)
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath) as! Celda
     
+        cell.imagen.image = movie[indexPath.section].imagenes[indexPath.item]
+        cell.titleMovie.text = movie[indexPath.section].nombres[indexPath.item]
+        
         // Configure the cell
     
         return cell
