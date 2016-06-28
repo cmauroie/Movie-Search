@@ -149,7 +149,13 @@ class MovieCollectionViewController: UICollectionViewController {
             
             let cell = sender as! UICollectionViewCell
             if let indexPaths = collectionView?.indexPathForCell(cell){
-            (segue.destinationViewController as! DetailsViewController).movie = self.movies[indexPaths.row]
+                
+                print("data: " + self.movies[indexPaths.section].nombres[indexPaths.row])
+            (segue.destinationViewController as! DetailsViewController).movie = self.movies[indexPaths.section]
+                
+                (segue.destinationViewController as! DetailsViewController).movie.nombres[0] = self.movies[indexPaths.section].nombres[indexPaths.row]
+                
+                (segue.destinationViewController as! DetailsViewController).movie.imagenes[0] = self.movies[indexPaths.section].imagenes[indexPaths.row]
             }
             /*if let indexPath = self.collectionView?.indexPathForCell(sender as! UICollectionViewCell) {
                 let detailVC = segue.destinationViewController as! DetailMenuViewController
