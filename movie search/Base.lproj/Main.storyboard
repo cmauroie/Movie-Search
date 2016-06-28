@@ -58,6 +58,7 @@
                                 <connections>
                                     <outlet property="imagen" destination="z4N-wP-g6b" id="b5m-6e-7sn"/>
                                     <outlet property="titleMovie" destination="6bE-f3-aj9" id="ZPr-Al-cDC"/>
+                                    <segue destination="avv-yY-kZE" kind="show" identifier="" id="Vei-fz-hSK"/>
                                 </connections>
                             </collectionViewCell>
                         </cells>
@@ -82,6 +83,56 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="igf-xi-E0b" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="651" y="413"/>
+        </scene>
+        <!--Details View Controller-->
+        <scene sceneID="mQb-H9-7lG">
+            <objects>
+                <viewController id="avv-yY-kZE" customClass="DetailsViewController" customModule="movie_search" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="9oB-jp-aal"/>
+                        <viewControllerLayoutGuide type="bottom" id="utP-YD-f2v"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="eHb-zD-BoC">
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Titulo pelicula" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="r49-TN-Qvc">
+                                <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="0.0" y="64" width="400" height="34"/>
+                                </variation>
+                            </textView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="1Fx-3x-XvH">
+                                <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="86" y="106" width="228" height="301"/>
+                                </variation>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <variation key="default">
+                            <mask key="subviews">
+                                <exclude reference="r49-TN-Qvc"/>
+                                <exclude reference="1Fx-3x-XvH"/>
+                            </mask>
+                        </variation>
+                        <variation key="heightClass=regular-widthClass=compact">
+                            <mask key="subviews">
+                                <include reference="r49-TN-Qvc"/>
+                                <include reference="1Fx-3x-XvH"/>
+                            </mask>
+                        </variation>
+                    </view>
+                    <connections>
+                        <outlet property="imageMovie" destination="1Fx-3x-XvH" id="4sJ-bk-Wc4"/>
+                        <outlet property="titleMovie" destination="r49-TN-Qvc" id="bPL-en-j7l"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="pgL-y0-073" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1614" y="412.5"/>
         </scene>
     </scenes>
 </document>

@@ -29,13 +29,13 @@ class MovieCollectionViewController: UICollectionViewController {
     let urlImage: String = "http://image.tmdb.org/t/p/w500"
     var urls_img:String = ""
     
-    var movie = [Seccion]()
+    var movies = [Seccion]()
     
     @IBAction func search(sender: UITextField) {
      //   let seccion = Seccion(nombres: sender.text, imagenes: searchInMovie(sender.text!))
         print(searchInMovie(sender.text!))
         
-        movie.append(searchInMovie(sender.text!))
+        movies.append(searchInMovie(sender.text!))
         self.collectionView!.reloadData()
     }
     
@@ -115,25 +115,48 @@ class MovieCollectionViewController: UICollectionViewController {
     // MARK: UICollectionViewDataSource
 
     override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return movie.count
+        // #warning Incomplete implementation, retursn the number of sections
+        return movies.count
     }
 
 
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of items
-        return movie[section].imagenes.count
+        return movies[section].imagenes.count
     }
 
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath) as! Celda
     
-        cell.imagen.image = movie[indexPath.section].imagenes[indexPath.item]
-        cell.titleMovie.text = movie[indexPath.section].nombres[indexPath.item]
+        cell.imagen.image = movies[indexPath.section].imagenes[indexPath.item]
+        cell.titleMovie.text = movies[indexPath.section].nombres[indexPath.item]
         
         // Configure the cell
     
         return cell
+    }
+    
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        
+        if (sender is UICollectionViewCell) {
+            
+            /*let cell = sender as UICollectionViewCell
+            let indexPath = collectionView.indexPathForCell(cell)
+            secondScene.authorDetail = data[indexPath.row].userOfImg
+            secondScene.likesDetail = data[indexPath.row].likesInImg
+            secondScene.imageDetail = data[indexPath.row].imgPath*/
+            
+            let cell = sender as! UICollectionViewCell
+            if let indexPaths = collectionView?.indexPathForCell(cell){
+            (segue.destinationViewController as! DetailsViewController).movie = self.movies[indexPaths.row]
+            }
+            /*if let indexPath = self.collectionView?.indexPathForCell(sender as! UICollectionViewCell) {
+                let detailVC = segue.destinationViewController as! DetailMenuViewController
+                detailVC.picFood = self.collection[indexPath.row]
+            }*/
+            
+        }
     }
 
     // MARK: UICollectionViewDelegate

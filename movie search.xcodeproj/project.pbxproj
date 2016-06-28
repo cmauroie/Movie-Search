@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1814F7261D2217E3001FC6C4 /* Celda.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1814F7251D2217E3001FC6C4 /* Celda.swift */; };
+		1814F7281D222497001FC6C4 /* DetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1814F7271D222497001FC6C4 /* DetailsViewController.swift */; };
 		18B6F33D1D1CFFAD00BA38CE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B6F33C1D1CFFAD00BA38CE /* AppDelegate.swift */; };
 		18B6F33F1D1CFFAD00BA38CE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B6F33E1D1CFFAD00BA38CE /* ViewController.swift */; };
 		18B6F3421D1CFFAD00BA38CE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18B6F3401D1CFFAD00BA38CE /* Main.storyboard */; };
@@ -19,6 +20,7 @@
 
 /* Begin PBXFileReference section */
 		1814F7251D2217E3001FC6C4 /* Celda.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Celda.swift; sourceTree = "<group>"; };
+		1814F7271D222497001FC6C4 /* DetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailsViewController.swift; sourceTree = "<group>"; };
 		18B6F3391D1CFFAD00BA38CE /* movie search.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "movie search.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		18B6F33C1D1CFFAD00BA38CE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		18B6F33E1D1CFFAD00BA38CE /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -69,6 +71,7 @@
 				18B6F3431D1CFFAD00BA38CE /* movie_search.xcdatamodeld */,
 				18B6F3511D1D0D2200BA38CE /* MovieCollectionViewController.swift */,
 				1814F7251D2217E3001FC6C4 /* Celda.swift */,
+				1814F7271D222497001FC6C4 /* DetailsViewController.swift */,
 			);
 			path = "movie search";
 			sourceTree = "<group>";
@@ -149,6 +152,7 @@
 				18B6F3451D1CFFAD00BA38CE /* movie_search.xcdatamodeld in Sources */,
 				1814F7261D2217E3001FC6C4 /* Celda.swift in Sources */,
 				18B6F33D1D1CFFAD00BA38CE /* AppDelegate.swift in Sources */,
+				1814F7281D222497001FC6C4 /* DetailsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
