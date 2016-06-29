@@ -16,6 +16,7 @@
 		18B6F3471D1CFFAD00BA38CE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18B6F3461D1CFFAD00BA38CE /* Assets.xcassets */; };
 		18B6F34A1D1CFFAD00BA38CE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18B6F3481D1CFFAD00BA38CE /* LaunchScreen.storyboard */; };
 		18B6F3521D1D0D2200BA38CE /* MovieCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B6F3511D1D0D2200BA38CE /* MovieCollectionViewController.swift */; };
+		BEBD75441D246EA2009022C7 /* FontAwesome.otf in Resources */ = {isa = PBXBuildFile; fileRef = BEBD75431D246622009022C7 /* FontAwesome.otf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		18B6F3491D1CFFAD00BA38CE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		18B6F34B1D1CFFAD00BA38CE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		18B6F3511D1D0D2200BA38CE /* MovieCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovieCollectionViewController.swift; sourceTree = "<group>"; };
+		BEBD75431D246622009022C7 /* FontAwesome.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FontAwesome.otf; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +64,7 @@
 		18B6F33B1D1CFFAD00BA38CE /* movie search */ = {
 			isa = PBXGroup;
 			children = (
+				BEBD75421D246551009022C7 /* Fonts */,
 				18B6F33C1D1CFFAD00BA38CE /* AppDelegate.swift */,
 				18B6F33E1D1CFFAD00BA38CE /* ViewController.swift */,
 				18B6F3401D1CFFAD00BA38CE /* Main.storyboard */,
@@ -74,6 +77,14 @@
 				1814F7271D222497001FC6C4 /* DetailsViewController.swift */,
 			);
 			path = "movie search";
+			sourceTree = "<group>";
+		};
+		BEBD75421D246551009022C7 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				BEBD75431D246622009022C7 /* FontAwesome.otf */,
+			);
+			name = Fonts;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -134,6 +145,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BEBD75441D246EA2009022C7 /* FontAwesome.otf in Resources */,
 				18B6F34A1D1CFFAD00BA38CE /* LaunchScreen.storyboard in Resources */,
 				18B6F3471D1CFFAD00BA38CE /* Assets.xcassets in Resources */,
 				18B6F3421D1CFFAD00BA38CE /* Main.storyboard in Resources */,

@@ -13,10 +13,16 @@ private let reuseIdentifier = "Cell"
 struct Seccion {
     var nombres : [String]
     var imagenes : [UIImage]
+    var votes : [NSNumber]
+    var fechas : [String]
+    var general: [String]
     
-    init(nombres : [String], imagenes : [UIImage]){
+    init(nombres : [String], imagenes : [UIImage], votes : [NSNumber], fechas : [String], general: [String]){
         self.nombres = nombres
         self.imagenes = imagenes
+        self.votes = votes
+        self.fechas = fechas
+        self.general = general
     }
 }
 
@@ -29,6 +35,9 @@ class MovieCollectionViewController: UICollectionViewController {
     let urlImage: String = "http://image.tmdb.org/t/p/w500"
     var urls_img:String = ""
     
+    var language:String = "es"
+    
+    
     var movies = [Seccion]()
     
     @IBAction func search(sender: UITextField) {
@@ -40,15 +49,18 @@ class MovieCollectionViewController: UICollectionViewController {
     }
     
     func searchInMovie(word : String)-> Seccion{
-        var imgs = [UIImage]()
-        var names = [String]()
+        var imgs_s = [UIImage]()
+        var names_s = [String]()
+        var votes_s = [NSNumber]()
+        var fechas_s = [String]()
+        var general_s = [String]()
         
         
-        let urls = urlMovie+"?api_key="+keyDev+"&query="+word
+        let urls = urlMovie+"?api_key="+keyDev+"&query="+word+"&language="+language
         let url = NSURL(string: urls)
         let datos = NSData(contentsOfURL: url!)
         
-        var data:Seccion = (Seccion(nombres: names, imagenes: imgs))
+        var data:Seccion = (Seccion(nombres: names_s, imagenes: imgs_s, votes: votes_s, fechas: fechas_s , general: general_s))
         
         do{
             let json = try NSJSONSerialization.JSONObjectWithData(datos!, options: NSJSONReadingOptions.MutableLeaves) as! NSDictionary
@@ -63,18 +75,22 @@ class MovieCollectionViewController: UICollectionViewController {
                 if let imageURL = (elemento as! NSDictionary)["poster_path"] as? String {
                     self.urls_img = imageURL
                     
+                    
                     let url_img = urlImage + urls_img + "?api_key="+keyDev
                     let urlImg = NSURL(string:url_img);
                     let img_data = NSData(contentsOfURL: urlImg!)
                     
                     if let imagen = UIImage(data: img_data!){
-                        imgs.append(imagen)
-                        names.append((elemento as! NSDictionary)["original_title"] as! String)
+                        imgs_s.append(imagen)
+                        names_s.append((elemento as! NSDictionary)["original_title"] as! String)
+                        votes_s.append((elemento as! NSDictionary)["vote_average"] as! NSNumber)
+                        fechas_s.append((elemento as! NSDictionary)["release_date"] as! String)
+                        general_s.append((elemento as! NSDictionary)["overview"] as! String)
                     }
                 }
             }
             
-           data = (Seccion(nombres: names , imagenes: imgs))
+           data = (Seccion(nombres: names_s , imagenes: imgs_s, votes: votes_s, fechas: fechas_s, general: general_s))
 
         }catch{
             
@@ -156,6 +172,14 @@ class MovieCollectionViewController: UICollectionViewController {
                 (segue.destinationViewController as! DetailsViewController).movie.nombres[0] = self.movies[indexPaths.section].nombres[indexPaths.row]
                 
                 (segue.destinationViewController as! DetailsViewController).movie.imagenes[0] = self.movies[indexPaths.section].imagenes[indexPaths.row]
+                
+                (segue.destinationViewController as! DetailsViewController).movie.votes[0] = self.movies[indexPaths.section].votes[indexPaths.row]
+                
+                (segue.destinationViewController as! DetailsViewController).movie.fechas[0] = self.movies[indexPaths.section].fechas[indexPaths.row]
+                
+                (segue.destinationViewController as! DetailsViewController).movie.general[0] = self.movies[indexPaths.section].general[indexPaths.row]
+                
+                
             }
             /*if let indexPath = self.collectionView?.indexPathForCell(sender as! UICollectionViewCell) {
                 let detailVC = segue.destinationViewController as! DetailMenuViewController
