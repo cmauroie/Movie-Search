@@ -36,7 +36,7 @@ class MovieCollectionViewController: UICollectionViewController, UITextFieldDele
     
     let keyDev: String = "9c9463d82b0ab409790d6a47c392df5b"
     let urlMovie: String = "http://api.themoviedb.org/3/search/movie"
-    let urlImage: String = "http://image.tmdb.org/t/p/w500"
+    let urlImage: String = "http://image.tmdb.org/t/p/w300"
     var urls_img:String = ""
     
     var language:String = "es"
