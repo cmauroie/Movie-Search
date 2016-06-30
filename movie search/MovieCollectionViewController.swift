@@ -39,13 +39,26 @@ class MovieCollectionViewController: UICollectionViewController {
     
     
     var movies = [Seccion]()
+    var totalItem = 0
+    var page = 1
+    var work: String = ""
     
     @IBAction func search(sender: UITextField) {
      //   let seccion = Seccion(nombres: sender.text, imagenes: searchInMovie(sender.text!))
-        print(searchInMovie(sender.text!))
+        //print(searchInMovie(sender.text!))
+        work = sender.text!
+        if work != ""{
+        dataSearch(work)
+        }
         
-        movies.append(searchInMovie(sender.text!))
-        self.collectionView!.reloadData()
+            }
+    
+    func dataSearch(data: String){
+        self.movies.append(searchInMovie(data))
+        
+        dispatch_async(dispatch_get_main_queue(),{
+            self.collectionView!.reloadData()
+        });
     }
     
     func searchInMovie(word : String)-> Seccion{
@@ -56,7 +69,7 @@ class MovieCollectionViewController: UICollectionViewController {
         var general_s = [String]()
         
         
-        let urls = urlMovie+"?api_key="+keyDev+"&query="+word+"&language="+language
+        let urls = urlMovie+"?api_key="+keyDev+"&query="+word+"&language="+language+"&page=\(page)"
         let url = NSURL(string: urls)
         let datos = NSData(contentsOfURL: url!)
         
@@ -132,12 +145,14 @@ class MovieCollectionViewController: UICollectionViewController {
 
     override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
         // #warning Incomplete implementation, retursn the number of sections
+       
         return movies.count
     }
 
 
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of items
+         totalItem = movies[section].imagenes.count - 2
         return movies[section].imagenes.count
     }
 
@@ -150,6 +165,26 @@ class MovieCollectionViewController: UICollectionViewController {
         // Configure the cell
     
         return cell
+    }
+    
+    override func collectionView(collectionView: UICollectionView, willDisplayCell cell: UICollectionViewCell, forItemAtIndexPath indexPath: NSIndexPath) {
+        
+        print("number: \(indexPath.row) \(totalItem) \(movies.count)")
+        
+        /*if indexPath.row == totalItem {
+            page += 1
+            print("loadData")
+            if page < 1000{
+                dispatch_async(dispatch_get_main_queue(),{
+                      self.dataSearch(self.work)
+                    });
+        
+            }
+        }*/
+        
+      /*  if collectionView.contentSize.height{
+            
+        }*/
     }
     
     
@@ -187,6 +222,38 @@ class MovieCollectionViewController: UICollectionViewController {
             }*/
             
         }
+    }
+    
+    
+    override func scrollViewWillBeginDragging(scrollView: UIScrollView) {
+        print("scrollViewWillBeginDragging")
+        
+    }
+    
+    override func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
+        print("scrollViewDidEndDecelerating")
+        
+        page += 1
+        print("loadData")
+        if page < 1000{
+           // dispatch_async(dispatch_get_main_queue(),{
+                self.dataSearch(self.work)
+           // });
+        }
+    }
+    
+    override func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        print("scrollViewDidEndDragging");
+    }
+    
+    override func scrollViewWillEndDragging(scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+        print("scrollViewWillEndDragging");
+    }
+    
+    
+    
+    override func scrollViewDidEndScrollingAnimation(scrollView: UIScrollView) {
+        print("scrollViewDidEndScrollingAnimation");
     }
 
     // MARK: UICollectionViewDelegate
