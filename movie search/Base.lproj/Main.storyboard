@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="NTT-qX-EGh">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="NTT-qX-EGh">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -43,7 +43,7 @@
                         </collectionViewFlowLayout>
                         <cells>
                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="Cell" id="ysL-gK-K20" customClass="Celda" customModule="movie_search" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="64" width="200" height="250"/>
+                                <rect key="frame" x="0.0" y="64" width="200" height="272"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                     <rect key="frame" x="0.0" y="0.0" width="200" height="272"/>
@@ -85,9 +85,13 @@
                             <textInputTraits key="textInputTraits" returnKeyType="search"/>
                             <connections>
                                 <action selector="search:" destination="0Gz-IP-p7d" eventType="editingDidEndOnExit" id="I56-Wb-rNj"/>
+                                <action selector="textFieldDoneEditing:" destination="0Gz-IP-p7d" eventType="editingDidEnd" id="OgO-Sl-P3Z"/>
                             </connections>
                         </textField>
                     </navigationItem>
+                    <connections>
+                        <outlet property="searchOut" destination="I6K-OQ-5BQ" id="QEB-Nq-VfX"/>
+                    </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="igf-xi-E0b" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

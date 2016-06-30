@@ -27,8 +27,9 @@ struct Seccion {
 }
 
 
-class MovieCollectionViewController: UICollectionViewController {
+class MovieCollectionViewController: UICollectionViewController, UITextFieldDelegate {
     
+    @IBOutlet weak var searchOut: UITextField!
     
     let keyDev: String = "9c9463d82b0ab409790d6a47c392df5b"
     let urlMovie: String = "http://api.themoviedb.org/3/search/movie"
@@ -46,17 +47,23 @@ class MovieCollectionViewController: UICollectionViewController {
     @IBAction func search(sender: UITextField) {
      //   let seccion = Seccion(nombres: sender.text, imagenes: searchInMovie(sender.text!))
         //print(searchInMovie(sender.text!))
+        
+        sender.resignFirstResponder()
+        
         work = sender.text!
         if work != ""{
-        dataSearch(work)
+            movies.removeAll()
+            dataSearch(work)
         }
+        
+        
         
             }
     
     func dataSearch(data: String){
-        self.movies.append(searchInMovie(data))
         
         dispatch_async(dispatch_get_main_queue(),{
+            self.movies.append(self.searchInMovie(data))
             self.collectionView!.reloadData()
         });
     }
@@ -124,6 +131,12 @@ class MovieCollectionViewController: UICollectionViewController {
         //self.collectionView!.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
 
         // Do any additional setup after loading the view.
+        searchOut.delegate=self
+        
+    }
+    
+    @IBAction func textFieldDoneEditing(sender: UITextField){
+        sender.resignFirstResponder()// Hide keyboard
     }
 
     override func didReceiveMemoryWarning() {
@@ -236,9 +249,9 @@ class MovieCollectionViewController: UICollectionViewController {
         page += 1
         print("loadData")
         if page < 1000{
-           // dispatch_async(dispatch_get_main_queue(),{
+            
                 self.dataSearch(self.work)
-           // });
+            
         }
     }
     
