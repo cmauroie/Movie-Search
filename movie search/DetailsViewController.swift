@@ -19,9 +19,14 @@ class DetailsViewController: UIViewController {
     @IBOutlet weak var generalMovie: UITextView!
     
     
+    
+    var URL_share = "https://www.themoviedb.org/movie/"
+    var id: String = ""
+    
+    
     @IBAction func share_movie(sender: AnyObject) {
         
-        let activityViewController = UIActivityViewController(activityItems: ["Hola" as NSString], applicationActivities: nil)
+        let activityViewController = UIActivityViewController(activityItems: [URL_share+id as NSString], applicationActivities: nil)
         presentViewController(activityViewController, animated: true, completion: {})
     }
     
@@ -49,6 +54,7 @@ class DetailsViewController: UIViewController {
             voteMovie.text = "\(y)"
             dateMovie.text = self.movie.fechas[0]
             generalMovie.text = self.movie.general[0]
+            id = "\(self.movie.id[0])"
     }
     
 
