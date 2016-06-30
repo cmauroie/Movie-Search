@@ -1,5 +1,5 @@
 # Movie-Search
-Aplicación que te permite buscar películas 
+Aplicación que te permite buscar películas usando la api https://www.themoviedb.org/documentation/api
 
 Como se observa en la imagen tenemos un Text Field que nos permite ingresar la película que deseamos buscar en este caso ingresamos la palabra "fast" seleccionamos el botón buscar y obtenemos diferentes opciones relacionadas con la palabra buscada en idioma español.
 
