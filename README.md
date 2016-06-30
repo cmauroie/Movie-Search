@@ -1,7 +1,7 @@
 # Movie-Search
 Aplicación que te permite buscar películas 
 
-Como se observa en la imagen tenemos un EditText que nos permite ingresar la película que deseamos buscar en este caso ingresamos la palabra "fast" seleccionamos el botón buscar y obtenemos diferentes opciones relacionadas con la palabra buscada en idioma español.
+Como se observa en la imagen tenemos un Text Field que nos permite ingresar la película que deseamos buscar en este caso ingresamos la palabra "fast" seleccionamos el botón buscar y obtenemos diferentes opciones relacionadas con la palabra buscada en idioma español.
 
 ![simulator screen shot 30 06 2016 2 22 22 a m](https://cloud.githubusercontent.com/assets/6970907/16480051/b21da3d4-3e69-11e6-9a55-c823847a2e51.png)
 
