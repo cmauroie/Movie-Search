@@ -47,7 +47,7 @@ class MovieCollectionViewController: UICollectionViewController, UITextFieldDele
     var page = 1
     var work: String = ""
     
-    @IBAction func search(sender: UITextField) {
+    @IBAction func search(_ sender: UITextField) {
      //   let seccion = Seccion(nombres: sender.text, imagenes: searchInMovie(sender.text!))
         //print(searchInMovie(sender.text!))
         
@@ -63,15 +63,15 @@ class MovieCollectionViewController: UICollectionViewController, UITextFieldDele
         
             }
     
-    func dataSearch(data: String){
+    func dataSearch(_ data: String){
         
-        dispatch_async(dispatch_get_main_queue(),{
+        DispatchQueue.main.async(execute: {
             self.movies.append(self.searchInMovie(data))
             self.collectionView!.reloadData()
         });
     }
     
-    func searchInMovie(word : String)-> Seccion{
+    func searchInMovie(_ word : String)-> Seccion{
         var imgs_s = [UIImage]()
         var names_s = [String]()
         var votes_s = [NSNumber]()
@@ -81,8 +81,8 @@ class MovieCollectionViewController: UICollectionViewController, UITextFieldDele
         
         
         let urls = urlMovie+"?api_key="+keyDev+"&query="+word+"&language="+language+"&page=\(page)"
-        let url = NSURL(string: urls)
-        let datos = NSData(contentsOfURL: url!)
+        let url = URL(string: urls)
+        let datos = try? Data(contentsOf: url!)
         
         var data:Seccion = (Seccion(nombres: names_s,
             imagenes: imgs_s,
@@ -95,7 +95,7 @@ class MovieCollectionViewController: UICollectionViewController, UITextFieldDele
             print("\(datos)")
             if datos != nil{
             
-            let json = try NSJSONSerialization.JSONObjectWithData(datos!, options: NSJSONReadingOptions.MutableLeaves) as! NSDictionary
+            let json = try JSONSerialization.jsonObject(with: datos!, options: JSONSerialization.ReadingOptions.mutableLeaves) as! NSDictionary
             
            
             print("response data: \(json)")
@@ -110,8 +110,8 @@ class MovieCollectionViewController: UICollectionViewController, UITextFieldDele
                     
                     
                     let url_img = urlImage + urls_img + "?api_key="+keyDev
-                    let urlImg = NSURL(string:url_img);
-                    let img_data = NSData(contentsOfURL: urlImg!)
+                    let urlImg = URL(string:url_img);
+                    let img_data = try? Data(contentsOf: urlImg!)
                     
                     if let imagen = UIImage(data: img_data!){
                         imgs_s.append(imagen)
@@ -145,9 +145,9 @@ class MovieCollectionViewController: UICollectionViewController, UITextFieldDele
         
         print("alert")
             let alertController = UIAlertController(title: "Atención", message:
-                "Por favor verifica tu conexión a internet", preferredStyle: UIAlertControllerStyle.Alert)
-            alertController.addAction(UIAlertAction(title: "Aceptar", style: UIAlertActionStyle.Default,handler: nil))
-            self.presentViewController(alertController, animated: true, completion: nil)
+                "Por favor verifica tu conexión a internet", preferredStyle: UIAlertControllerStyle.alert)
+            alertController.addAction(UIAlertAction(title: "Aceptar", style: UIAlertActionStyle.default,handler: nil))
+            self.present(alertController, animated: true, completion: nil)
         
     }
     
@@ -165,7 +165,7 @@ class MovieCollectionViewController: UICollectionViewController, UITextFieldDele
         
     }
     
-    @IBAction func textFieldDoneEditing(sender: UITextField){
+    @IBAction func textFieldDoneEditing(_ sender: UITextField){
         sender.resignFirstResponder()// Hide keyboard
     }
 
@@ -186,21 +186,21 @@ class MovieCollectionViewController: UICollectionViewController, UITextFieldDele
 
     // MARK: UICollectionViewDataSource
 
-    override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
+    override func numberOfSections(in collectionView: UICollectionView) -> Int {
         // #warning Incomplete implementation, retursn the number of sections
        
         return movies.count
     }
 
 
-    override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of items
          totalItem = movies[section].imagenes.count - 2
         return movies[section].imagenes.count
     }
 
-    override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath) as! Celda
+    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! Celda
     
         cell.imagen.image = movies[indexPath.section].imagenes[indexPath.item]
         cell.titleMovie.text = movies[indexPath.section].nombres[indexPath.item]
@@ -210,34 +210,34 @@ class MovieCollectionViewController: UICollectionViewController, UITextFieldDele
         return cell
     }
     
-    override func collectionView(collectionView: UICollectionView, willDisplayCell cell: UICollectionViewCell, forItemAtIndexPath indexPath: NSIndexPath) {
+    override func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         
         print("number: \(indexPath.row) \(totalItem) \(movies.count)")
         
     }
     
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         if (sender is UICollectionViewCell) {
             
                         let cell = sender as! UICollectionViewCell
-            if let indexPaths = collectionView?.indexPathForCell(cell){
+            if let indexPaths = collectionView?.indexPath(for: cell){
                 
                 print("data: " + self.movies[indexPaths.section].nombres[indexPaths.row])
-            (segue.destinationViewController as! DetailsViewController).movie = self.movies[indexPaths.section]
+            (segue.destination as! DetailsViewController).movie = self.movies[indexPaths.section]
                 
-                (segue.destinationViewController as! DetailsViewController).movie.nombres[0] = self.movies[indexPaths.section].nombres[indexPaths.row]
+                (segue.destination as! DetailsViewController).movie.nombres[0] = self.movies[indexPaths.section].nombres[indexPaths.row]
                 
-                (segue.destinationViewController as! DetailsViewController).movie.imagenes[0] = self.movies[indexPaths.section].imagenes[indexPaths.row]
+                (segue.destination as! DetailsViewController).movie.imagenes[0] = self.movies[indexPaths.section].imagenes[indexPaths.row]
                 
-                (segue.destinationViewController as! DetailsViewController).movie.votes[0] = self.movies[indexPaths.section].votes[indexPaths.row]
+                (segue.destination as! DetailsViewController).movie.votes[0] = self.movies[indexPaths.section].votes[indexPaths.row]
                 
-                (segue.destinationViewController as! DetailsViewController).movie.fechas[0] = self.movies[indexPaths.section].fechas[indexPaths.row]
+                (segue.destination as! DetailsViewController).movie.fechas[0] = self.movies[indexPaths.section].fechas[indexPaths.row]
                 
-                (segue.destinationViewController as! DetailsViewController).movie.general[0] = self.movies[indexPaths.section].general[indexPaths.row]
+                (segue.destination as! DetailsViewController).movie.general[0] = self.movies[indexPaths.section].general[indexPaths.row]
                 
-                (segue.destinationViewController as! DetailsViewController).movie.id[0] = self.movies[indexPaths.section].id[indexPaths.row]
+                (segue.destination as! DetailsViewController).movie.id[0] = self.movies[indexPaths.section].id[indexPaths.row]
                 
                 
                 
@@ -247,12 +247,12 @@ class MovieCollectionViewController: UICollectionViewController, UITextFieldDele
     }
     
     
-    override func scrollViewWillBeginDragging(scrollView: UIScrollView) {
+    override func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         print("scrollViewWillBeginDragging")
         
     }
     
-    override func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
+    override func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         print("scrollViewDidEndDecelerating")
         
         page += 1
@@ -264,17 +264,17 @@ class MovieCollectionViewController: UICollectionViewController, UITextFieldDele
         }
     }
     
-    override func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+    override func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         print("scrollViewDidEndDragging");
     }
     
-    override func scrollViewWillEndDragging(scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+    override func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
         print("scrollViewWillEndDragging");
     }
     
     
     
-    override func scrollViewDidEndScrollingAnimation(scrollView: UIScrollView) {
+    override func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
         print("scrollViewDidEndScrollingAnimation");
     }
 

@@ -24,10 +24,10 @@ class DetailsViewController: UIViewController {
     var id: String = ""
     
     
-    @IBAction func share_movie(sender: AnyObject) {
+    @IBAction func share_movie(_ sender: AnyObject) {
         
         let activityViewController = UIActivityViewController(activityItems: [URL_share+id as NSString], applicationActivities: nil)
-        presentViewController(activityViewController, animated: true, completion: {})
+        present(activityViewController, animated: true, completion: {})
     }
     
     
@@ -43,7 +43,7 @@ class DetailsViewController: UIViewController {
     }
     
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
             titleMovie.text = self.movie.nombres[0]
             imageMovie.image = self.movie.imagenes[0]
         
